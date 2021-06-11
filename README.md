@@ -14,10 +14,6 @@
 
 # 配套工具以及工具说明书
 
-[配套工具](#)
+[配套工具](https://github.com/Justxyx/The-Elements-of-Computer-Systems-Building-a-Modern-Computer-from-First-Principles/tree/master/tools)
 
-[工具说明书](#)
-
-# 书籍资料
-    这本书已经绝版了，网上买的基本都是影印版，如果侵权可联系我删除。
-[书籍资料](#)
+[工具说明书](https://github.com/Justxyx/The-Elements-of-Computer-Systems-Building-a-Modern-Computer-from-First-Principles/tree/master/%E5%B7%A5%E5%85%B7%E8%AF%B4%E6%98%8E%E4%B9%A6)
