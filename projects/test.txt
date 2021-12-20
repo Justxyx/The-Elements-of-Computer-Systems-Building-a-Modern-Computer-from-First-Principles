@@ -1,0 +1,748 @@
+
+/**
+*  把函数局部变量压栈
+**/
+// vm command: function SquareGame.new 0
+(SquareGame.new)
+// initialize local segment
+@0
+D=A
+(SquareGame.new$LOOP)
+D=D-1
+@SquareGame.new$END
+D;JLT
+// push the value into stack
+@SP
+A=M
+M=0
+@SP
+M=M+1
+@SquareGame.new$LOOP
+0;JMP
+(SquareGame.new$END)
+
+// vm command:push constant 1
+@1
+D=A
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command: call Memory.alloc 1
+// save work
+@Memory.alloc1$retAddr1
+D=A
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@LCL
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@ARG
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THIS
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THAT
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// argument process
+@SP
+D=M
+@5
+D=D-A
+@1
+D=D-A
+@ARG
+M=D
+// LCL=SP
+@SP
+D=M
+@LCL
+M=D
+// go to called function
+@Memory.alloc
+0;JMP
+(Memory.alloc1$retAddr1)
+
+// vm command:pop pointer 0
+@THIS
+D=A
+@0
+D=D+A
+// store the result temporarily
+@R13
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R13
+A=M
+M=D
+
+// vm command:push argument 0
+@ARG
+D=M
+@0
+A=D+A
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command:pop this 0
+@THIS
+D=M
+@0
+D=D+A
+// store the result temporarily
+@R13
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R13
+A=M
+M=D
+
+// vm command:push pointer 0
+@THIS
+D=A
+@0
+A=D+A
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command: return
+@LCL
+D=M
+@R13
+M=D        // temporarily store the endFrame
+@R13
+D=M
+@5
+A=D-A      // get the return address
+D=M
+@R14
+M=D        // temporarily store the return address
+@ARG
+D=M
+@0
+D=D+A
+// store the result temporarily
+@R15
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R15
+A=M
+M=D
+// set the SP
+@ARG
+D=M
+@SP
+M=D+1
+// restore scene
+@R13
+D=M
+@R15
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@THAT
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@THIS
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@ARG
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@LCL
+M=D
+
+// goto return address
+@R14
+A=M
+0;JMP
+
+// vm command: function SquareGame.add 1
+(SquareGame.add)
+// initialize local segment
+@1
+D=A
+(SquareGame.add$LOOP)
+D=D-1
+@SquareGame.add$END
+D;JLT
+// push the value into stack
+@SP
+A=M
+M=0
+@SP
+M=M+1
+@SquareGame.add$LOOP
+0;JMP
+(SquareGame.add$END)
+
+// vm command:push argument 0
+@ARG
+D=M
+@0
+A=D+A
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command:pop pointer 0
+@THIS
+D=A
+@0
+D=D+A
+// store the result temporarily
+@R13
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R13
+A=M
+M=D
+
+// vm command:push argument 1
+@ARG
+D=M
+@1
+A=D+A
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command:push this 0
+@THIS
+D=M
+@0
+A=D+A
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command:add
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the result temporarily
+@R14
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the result temporarily
+@R13
+M=D
+@R13
+D=M
+@R14
+D=D+M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command:pop local 0
+@LCL
+D=M
+@0
+D=D+A
+// store the result temporarily
+@R13
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R13
+A=M
+M=D
+
+// vm command:push local 0
+@LCL
+D=M
+@0
+A=D+A
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command: return
+@LCL
+D=M
+@R13
+M=D        // temporarily store the endFrame
+@R13
+D=M
+@5
+A=D-A      // get the return address
+D=M
+@R14
+M=D        // temporarily store the return address
+@ARG
+D=M
+@0
+D=D+A
+// store the result temporarily
+@R15
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R15
+A=M
+M=D
+// set the SP
+@ARG
+D=M
+@SP
+M=D+1
+// restore scene
+@R13
+D=M
+@R15
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@THAT
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@THIS
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@ARG
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@LCL
+M=D
+
+// goto return address
+@R14
+A=M
+0;JMP
+
+// vm command: function Main.main 2
+(Main.main)
+// initialize local segment
+@2
+D=A
+(Main.main$LOOP)
+D=D-1
+@Main.main$END
+D;JLT
+// push the value into stack
+@SP
+A=M
+M=0
+@SP
+M=M+1
+@Main.main$LOOP
+0;JMP
+(Main.main$END)
+
+// vm command:push constant 12
+@12
+D=A
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command:pop local 1
+@LCL
+D=M
+@1
+D=D+A
+// store the result temporarily
+@R13
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R13
+A=M
+M=D
+
+// vm command:push local 1
+@LCL
+D=M
+@1
+A=D+A
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command: call SquareGame.new 1
+// save work
+@SquareGame.new2$retAddr2
+D=A
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@LCL
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@ARG
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THIS
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THAT
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// argument process
+@SP
+D=M
+@5
+D=D-A
+@1
+D=D-A
+@ARG
+M=D
+// LCL=SP
+@SP
+D=M
+@LCL
+M=D
+// go to called function
+@SquareGame.new
+0;JMP
+(SquareGame.new2$retAddr2)
+
+// vm command:pop local 0
+@LCL
+D=M
+@0
+D=D+A
+// store the result temporarily
+@R13
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R13
+A=M
+M=D
+
+// vm command:push local 1
+@LCL
+D=M
+@1
+A=D+A
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command: call SquareGame.add 1
+// save work
+@SquareGame.add3$retAddr3
+D=A
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@LCL
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@ARG
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THIS
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THAT
+D=M
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// argument process
+@SP
+D=M
+@5
+D=D-A
+@1
+D=D-A
+@ARG
+M=D
+// LCL=SP
+@SP
+D=M
+@LCL
+M=D
+// go to called function
+@SquareGame.add
+0;JMP
+(SquareGame.add3$retAddr3)
+
+// vm command:pop local 1
+@LCL
+D=M
+@1
+D=D+A
+// store the result temporarily
+@R13
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R13
+A=M
+M=D
+
+// vm command:push constant 0
+@0
+D=A
+// push the value into stack
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// vm command: return
+@LCL
+D=M
+@R13
+M=D        // temporarily store the endFrame
+@R13
+D=M
+@5
+A=D-A      // get the return address
+D=M
+@R14
+M=D        // temporarily store the return address
+@ARG
+D=M
+@0
+D=D+A
+// store the result temporarily
+@R15
+M=D
+// get the top element of stack
+@SP
+M=M-1
+A=M
+D=M
+// store the top value
+@R15
+A=M
+M=D
+// set the SP
+@ARG
+D=M
+@SP
+M=D+1
+// restore scene
+@R13
+D=M
+@R15
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@THAT
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@THIS
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@ARG
+M=D
+
+@R15
+M=M-1
+A=M
+D=M
+@LCL
+M=D
+
+// goto return address
+@R14
+A=M
+0;JMP
+
